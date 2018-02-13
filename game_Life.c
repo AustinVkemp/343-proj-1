@@ -105,20 +105,9 @@ if (yes !=1){
     }else if( strcmp(args[0], "new") == 0){
 
       universeSize(universe,x ,y);
-      //fills some cells
-      universe[0][1] = 1;
-      universe[1][1] = 1;
-      universe[2][1] = 1;
-      universe[0][2] = 1;
-      universe[1][2] = 1;
-      universe[2][2] = 1;
-      universe[0][3] = 1;
-      universe[1][3] = 1;
-      universe[2][3] = 1;
-
 
       printUniverse(universe);
-      printf("\n\n type 'next' to see the next generation. ");
+      printf("\n\n type 'add' to fill some cells. ");
     free(readin);
     free(args);
       yes++;
@@ -131,7 +120,8 @@ if (yes !=1){
     }else if(strcmp(args[0],"add") == 0){
       //checks if save was entered
     }else if(strcmp(args[0],"save") == 0){
-      char* buffer = malloc(sizeof(char) * ((y*x) + 3));
+      char* fileName = "gameSaveTest.txt";
+      char* buffer = malloc(sizeof(int) * ((y*x) + 3));
       buffer[0] = (char) x;
       buffer[1] = (char) y;
       int b =2;
@@ -141,30 +131,36 @@ if (yes !=1){
                 b++;
     }
   }
-     write_file("gameSaveTest.txt",buffer, ((x*y)+3));
+     write_file(fileName,buffer, ((x*y)+3));
      printf("%s\n","Game has been saved." );
 free(buffer);
       //checks id load was entered
 
-      
+
     }else if(strcmp(args[0],"load") == 0){
       char* tempBuffer;
       char* fileName = "gameSaveTest.txt";
-      universe = malloc(sizeof(int**)* tempBuffer[1]);
+      read_file(fileName, &tempBuffer);
+      universe = malloc(sizeof(int**) * (int) tempBuffer[1]);
       for (int u = 0; u < x; u++){
-    universe[u] = malloc(sizeof(int*)* tempBuffer[2]);
+    universe[u] = malloc(sizeof(int*) * (int) tempBuffer[2]);
   }
-      read_file(fileName,&tempBuffer);
-      for(int i =0; i < x;i++){
-        for (int j = 0; j<y; j++){
-              universe[i][j] = (int) tempBuffer[i];
+int h = 4 ;
+  for(int i =0; i < x;i++){
+    for (int j = 0; j<y; j++){
+     universe[i][j] = tempBuffer[h] -'0' ;
+h++;
+}
 
-    }
-  }
+
+}
 
       printf("%s\n","Game has been loaded." );
+      printUniverse(universe);
+
 
       yes++;
+      free(tempBuffer);
       //Checks to see if help was entered
   }else if(strcmp(args[0],"help") == 0){
     printf("\nYou may type:");

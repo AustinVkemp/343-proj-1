@@ -17,9 +17,9 @@ load file method
 int read_file( char* filename, char** buffer ){
 
   FILE *sfile;
-sfile=fopen(filename,"rb");
+sfile=fopen(filename,"r");
 int size = 0;
-long fsize;
+int fsize;
 fscanf(sfile,"%d", &size);
 
 if(!sfile) {
@@ -31,14 +31,12 @@ fseek( sfile, 0L, SEEK_END);
 fsize = ftell( sfile );
 rewind( sfile);
 
-*buffer = (char*) malloc(sizeof(char)*fsize);
+  *buffer = (char*) malloc(sizeof(char)*fsize);
+fgets(*buffer,fsize, sfile);
 
-if( 1!=fread( *buffer,fsize, 1, sfile) )
-return -1;
 
-// while(sfile!= NULL){
-//   fscanf(sfile,"%d",(int *)*buffer);
-// }
+
+
 
 
 fclose(sfile);
@@ -63,12 +61,13 @@ int i;
     if(!sfile) {
         printf("Write Error!");
     }
-  fprintf(sfile, "%d\n", size);
+  fprintf(sfile, "%d", size);
 
-for(i=0;i<size;i++)
+for(i=0;i<size -1;i++)
 {
- fprintf(sfile, "%d\n",buffer[i]);
+ fprintf(sfile, "%d",buffer[i]);
 }
+fprintf(sfile, "%d",buffer[i+1]);
 fclose(sfile);
 return 0;
 }

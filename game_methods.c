@@ -60,7 +60,7 @@ void printUniverse(int** tempUniv){
   for (int d = 0; d < x; d++){
     printf(" ");
     for (int p = 0; p < y; p++){
-     printf(" %d ", tempUniv[d][p]);
+     printf("A %d ", tempUniv[d][p]);
     }
     //spacing
     printf(" \n");
