@@ -29,6 +29,7 @@ int write_file(char* filename, char* buffer, int size);
 * progress the game
 *
 *@author Lanndon Rose
+*@author Austin Van Kempen
 */
 int main(int argc, char *argv[]){
   // takes in board size from command line
